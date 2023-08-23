@@ -12,8 +12,8 @@ body{
 }
 
 .container{
-    width: 80%;
-    height: 80%;
+    width: 50%;
+    height: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,6 +23,17 @@ body{
     overflow: hidden;
     position: absolute;
     background-image: linear-gradient(to right, hsl(241, 81%, 54%), hsl(252, 100%, 67%));
+    h1{
+        text-align: center;
+        background-color: hsl(241, 100%, 89%);
+        padding: 5px;
+        width: 50%;
+        border-radius: 5px;
+        box-shadow: 1px 1px 1px 0px;
+    }
+    h1:hover{
+        box-shadow: 1px 1px 4px 0px;
+    }
 }
 
 .new-list-button{
@@ -115,6 +126,10 @@ ul{
     overflow: hidden;
     padding: 10px;
     margin: 0px 10px;
+}
+
+.to-do-list-container:hover{
+    box-shadow: 1px 1px 1px 0px;
 }
 
 .container-content-left{

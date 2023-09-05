@@ -111,7 +111,7 @@ function removeToDoItem(event) {
 
 function addNewToDoItem() {
     var addText = $('.input-new-item').val();
-    if (addText !== ''){
+    if ($.trim(addText) !== ''){
         $('ul').append('<li class="list">' + 
                             '<div class="to-do-list-container">' +
                                 '<div class="container-content-left">' +

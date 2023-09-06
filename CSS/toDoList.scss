@@ -1,6 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 body{
     background-color: black;
     margin: 0;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .webpage{
@@ -23,16 +31,51 @@ body{
     overflow: hidden;
     position: absolute;
     background-image: linear-gradient(to right, hsl(241, 81%, 54%), hsl(252, 100%, 67%));
-    h1{
-        text-align: center;
-        background-color: hsl(241, 100%, 89%);
-        padding: 5px;
-        width: 50%;
-        border-radius: 5px;
-        box-shadow: 1px 1px 1px 0px;
-    }
-    h1:hover{
-        box-shadow: 1px 1px 4px 0px;
+    .heading{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        h1{
+            text-align: center;
+            background-color: hsl(241, 100%, 89%);
+            padding: 5px;
+            margin: 10px;
+            height: 50px;
+            width: 50%;
+            border-radius: 5px;
+            box-shadow: 1px 1px 1px 0px;
+        }
+        h1:hover{
+            box-shadow: 1px 1px 4px 0px;
+        }
+        .sort{
+            text-align: center;
+            background-color: hsl(241, 100%, 89%);
+            padding: 5px;
+            margin: 10px;
+            height: 50px;
+            width: 25%;
+            min-width: 150px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 1px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            div{
+                // min-width: 50px;
+                // width: 70px;
+                height: 80%;
+                border-radius: 3px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            div:hover{
+                // background-color: hsl(241, 100%, 80%);
+                color: hsl(241, 100%, 60%);
+                cursor: pointer;
+            }
+        }
     }
 }
 
@@ -73,7 +116,7 @@ body{
     transition: 0.5s;
     .input-new-item{
         border-radius: 10px;
-        height: 20px;
+        height: 40px;
         width: 100%;
         border: none;
         box-shadow: 0px 0px 2px 1px;
@@ -88,10 +131,11 @@ body{
         width: 50px;
         height: 40px;
         border: none;
-        box-shadow: 0px 0px 2px 1px;
+        box-shadow: 0px 0px 2px 1px grey;
         cursor: pointer;
         margin: 5px;
         background-color: hsl(234, 85%, 45%);
+        color: hsl(241, 100%, 89%);
         transition: 0.5s;
     }
     .add-new-item:hover{
@@ -137,15 +181,15 @@ ul{
 
 .container-content-left{
     width: 100%;
-    height: auto;
+    height: 100%;
     display: flex;
+    align-items: center ;
 }
 
 .container-content-right{
-    width: 30px;
+    width: fit-content;
     height: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0;
@@ -154,7 +198,7 @@ ul{
 
 .checkbox-container{
     width: 20px;
-    height: auto;
+    height: 20px;
     display: flex;
     align-items: center;
     border-radius: 100%;
@@ -184,6 +228,21 @@ ul{
     margin: 0px 10px;
 }
 
+.edit-button{
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.5rem;
+    background-color: yellow;
+    margin-right: 5px;
+}
 .close-button{
     height: 20px;
     width: 20px;
@@ -197,4 +256,8 @@ ul{
     cursor: pointer;
     font-size: 0.5rem;
     background-color: red;
+}
+
+.clicked{
+    color: hsl(241, 100%, 60%);
 }

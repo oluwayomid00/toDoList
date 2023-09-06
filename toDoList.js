@@ -1,4 +1,8 @@
 // When the plus button is pressed, reveal the input element and hide the plus button
+var edit = false;
+var pointer;
+$('.all').addClass('clicked');
+
 $('.new-list').click(function(){
     clickedPlusButton();
 });
@@ -15,7 +19,7 @@ $('.input-new-item').keyup(function(event){
 });
 
 // When the checkbox is clicked
-$(document).on('click','.checkbox-container', function(){
+$('.container-content-left').on('click','.checkbox-container', function(){
     checkedToDoItem($(this));
 });
 
@@ -24,14 +28,50 @@ $(document).on('click','.close-button', function(){
     removeToDoItem($(this));
 });
 
+// When the text container is clicked
+$(document).on('click','.container-content-left', function(){
+    checkedToDoItem($(this).children('.checkbox-container'));
+});
 
+// When edit is clicked
+$(document).on('click','.edit-button', function(){
+    editToDoItem($(this));
+});
 
+$('.all').click(function(event){
+    $('.all').addClass('clicked');
+    $('.pending').removeClass('clicked');
+    $('.done').removeClass('clicked');
+    $('li').each(function(){
+        $(this).show();
+    })
+});
 
+$('.pending').click(function(event){
+    $('.all').removeClass('clicked');
+    $('.pending').addClass('clicked');
+    $('.done').removeClass('clicked');
+    $('li').each(function(){
+        if (!$(this).hasClass('checked')){
+            $(this).show();
+        }else{
+            $(this).hide();
+        }
+    })
+});
 
-
-
-
-
+$('.done').click(function(event){
+    $('.all').removeClass('clicked');
+    $('.pending').removeClass('clicked');
+    $('.done').addClass('clicked');
+    $('li').each(function(){
+        if ($(this).hasClass('checked')){
+            $(this).show();
+        }else{
+            $(this).hide();
+        }
+    })
+});
 
 
 
@@ -103,29 +143,52 @@ function enterKeyIsAddButton(event) {
 function checkedToDoItem(event) {
     event.toggleClass('checked-checkbox'); 
     event.parent().toggleClass('checked-text'); 
+    event.parent().parent().parent().toggleClass('checked'); 
 }
 
 function removeToDoItem(event) {
-    event.parent().parent().parent().hide('fast', function(){ event.parent().parent().parent().remove();})
+    event.parent().parent().parent().hide('fast', function(){ event.parent().parent().parent().remove();});
+}
+
+function editToDoItem(event) {
+    edit = true;
+    $('.input-new-item').val(event.parent().siblings('.container-content-left').children('.text-container').children('.text').text());
+    // $('.input-new-item').val(event.parent().siblings('.container-content-left').children('.text-container .text').text());
+    clickedPlusButton();
+    pointer = event.parent().siblings('.container-content-left').children('.text-container').children('.text');
+    // addNewToDoItem(event.parent().siblings('.container-content-left').children('.text-container').children('.text'));
+    // edit = false;
 }
 
 function addNewToDoItem() {
-    var addText = $('.input-new-item').val();
-    if ($.trim(addText) !== ''){
-        $('ul').append('<li class="list">' + 
-                            '<div class="to-do-list-container">' +
-                                '<div class="container-content-left">' +
-                                    '<div class="checkbox-container">' + '</div>' +
-                                    '<div class="text-container">' +
-                                        '<p class="text">' + addText  + '</p>' +
+    if (edit){
+        var editText = $('.input-new-item').val();
+        if ($.trim(editText) !== ''){
+            pointer.text(editText)
+        }else{
+            return;
+        }
+        edit = false;
+        clickedAddButton();
+    }else{
+        var addText = $('.input-new-item').val();
+        if ($.trim(addText) !== ''){
+            $('ul').append('<li class="list">' + 
+                                '<div class="to-do-list-container">' +
+                                    '<div class="container-content-left">' +
+                                        '<div class="checkbox-container">' + '</div>' +
+                                        '<div class="text-container">' +
+                                            '<p class="text">' + addText  + '</p>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="container-content-right">' +
+                                        '<button class="edit-button">' + '<i class="fa fa-pencil"></i>' + '</button>' +
+                                        '<button class="close-button">' + '<i class="fa fa-trash-o"></i>' + '</button>' +
                                     '</div>' +
                                 '</div>' +
-                                '<div class="container-content-right">' +
-                                    '<button class="close-button">' + 'x' + '</button>' +
-                                '</div>' +
-                            '</div>' +
-                        '</li>');
-    }else{
-        return;
+                            '</li>');
+        }else{
+            return;
+        }
     }
 }

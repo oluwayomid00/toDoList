@@ -21,7 +21,7 @@ body{
 
 .container{
     width: 75%;
-    height: 40%;
+    height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -36,7 +36,12 @@ body{
         justify-content: space-between;
         width: 100%;
         h1{
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            font-size: 4vw;
+            // font-size: 100%;
             background-color: hsl(241, 100%, 89%);
             padding: 5px;
             margin: 10px;

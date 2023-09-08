@@ -1,7 +1,6 @@
 // When the plus button is pressed, reveal the input element and hide the plus button
 var edit = false;
 var pointer;
-$('.all').addClass('clicked');
 
 $('.new-list').click(function(){
     clickedPlusButton();
@@ -38,19 +37,20 @@ $(document).on('click','.edit-button', function(){
     editToDoItem($(this));
 });
 
+$('.sort div').each((i,e) => {
+    $(e).click(() => {
+        $('div.clicked').removeClass('clicked');
+        $(e).addClass('clicked');
+    });
+});
+
 $('.all').click(function(event){
-    $('.all').addClass('clicked');
-    $('.pending').removeClass('clicked');
-    $('.done').removeClass('clicked');
     $('li').each(function(){
         $(this).show();
     })
 });
 
 $('.pending').click(function(event){
-    $('.all').removeClass('clicked');
-    $('.pending').addClass('clicked');
-    $('.done').removeClass('clicked');
     $('li').each(function(){
         if (!$(this).hasClass('checked')){
             $(this).show();
@@ -61,9 +61,6 @@ $('.pending').click(function(event){
 });
 
 $('.done').click(function(event){
-    $('.all').removeClass('clicked');
-    $('.pending').removeClass('clicked');
-    $('.done').addClass('clicked');
     $('li').each(function(){
         if ($(this).hasClass('checked')){
             $(this).show();
@@ -72,16 +69,6 @@ $('.done').click(function(event){
         }
     })
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -143,21 +130,19 @@ function enterKeyIsAddButton(event) {
 function checkedToDoItem(event) {
     event.toggleClass('checked-checkbox'); 
     event.parent().toggleClass('checked-text'); 
-    event.parent().parent().parent().toggleClass('checked'); 
+    event.parents(".list").toggleClass('checked'); 
 }
 
 function removeToDoItem(event) {
-    event.parent().parent().parent().hide('fast', function(){ event.parent().parent().parent().remove();});
+    event.parents(".list").hide('fast', function(){ event.parents(".list").remove();});
 }
 
 function editToDoItem(event) {
     edit = true;
-    $('.input-new-item').val(event.parent().siblings('.container-content-left').children('.text-container').children('.text').text());
-    // $('.input-new-item').val(event.parent().siblings('.container-content-left').children('.text-container .text').text());
+    $('.input-new-item').val(event.parents('.list').find('.text').text());
     clickedPlusButton();
-    pointer = event.parent().siblings('.container-content-left').children('.text-container').children('.text');
-    // addNewToDoItem(event.parent().siblings('.container-content-left').children('.text-container').children('.text'));
-    // edit = false;
+    // pointer = event.parent().siblings('.container-content-left').children('.text-container').children('.text');
+    pointer = event.parents('.list').find('.text');
 }
 
 function addNewToDoItem() {
@@ -173,6 +158,7 @@ function addNewToDoItem() {
     }else{
         var addText = $('.input-new-item').val();
         if ($.trim(addText) !== ''){
+            $('.all').click();
             $('ul').append('<li class="list">' + 
                                 '<div class="to-do-list-container">' +
                                     '<div class="container-content-left">' +
